@@ -1,0 +1,41 @@
+!variables
+
+    yg
+    yg_gap
+    yg_tnd
+    bg_to_ny
+    vg_to_ny
+
+
+!parameters
+
+    ss_yg_to_y
+    ss_bg_to_ny
+
+    c1_vg_to_ny
+
+
+!log-variables !all-but
+
+    bg_to_ny
+    vg_to_ny
+
+
+!equations
+
+    yg = yg_tnd * yg_gap; 
+
+    py * yg = ss_yg_to_y * py * y;
+
+    bg_to_ny * ny = ...
+        + (1 + r{-1}) * bg_to_ny{-1} * ny{-1} ...
+        - py * yg ...
+        + vg_to_ny * ny;
+
+    vg_to_ny = ...
+        + &vg_to_ny ...
+        - c1_vg_to_ny * (bg_to_ny - ss_bg_to_ny) ...
+    !! bg_to_ny = ss_bg_to_ny;
+
+    zg = glogc1(-bg_to_ny, 0.5/400, 0.10, -1.2, -0.5/400, 20/400);
+

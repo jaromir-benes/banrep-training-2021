@@ -1,0 +1,103 @@
+
+
+!variables
+
+    c
+    i
+    x
+    m
+    mc
+    mi
+    mx
+    y
+    yc
+    yi
+    yx
+    vh
+    pc
+    rh
+    r
+    rw_fcy
+    e
+    pm
+    px
+    pm_fcy
+    px_fcy
+    t
+    ngpd
+    nfa_ngdp
+
+!parameters
+    
+    beta
+    eta
+    delta
+    gamma_k
+    gamma_mc
+    gamma_mi
+    gamma_mx
+
+!equations
+
+
+    vh * c * pc = 1;
+
+    vh = beta*vh{+1}*rh;
+
+    vh*w = n^eta;
+
+    k = (1-delta)*k{-1} + i;
+
+    pk = pi;
+
+    vh*pk = beta*vh{+1}*(pu{+1} + (1-delta)*pk{+1});
+
+    y = a * k{-1}^gamma_k * n^(1-gamma_k);
+    gamma_k * py * y = pu * k{-1};
+    (1-gamma_k) * py * y = w * n;
+
+    y = yc + yi + yx;
+
+    m = mc + yi + mx;
+
+    c = ac * yc^(1-gamma_mc) * mc^gamma_mc;
+    (1 - gamma_mc) * pc * c = py * yc;
+    gamma_mc * pc * c = pm * mc;
+
+    i = ai * yi^(1-gamma_mi) * mi^gamma_mi;
+    (1 - gamma_mi) * pi * i = py * yi;
+    gamma_mi * pi * i = pm * mi;
+
+    x = ax * yx^(1-gamma_mx) * mx^gamma_mx;
+    (1 - gamma_mx) * px * x = py * yx;
+    gamma_mx * px * x = pm * mx;
+
+    pc = 1;
+
+    ngdp = pc*c + pi*i + px*x - pm*m;
+
+    nfa_ngdp * ngdp = ...
+        rnfa * nfa_ngdp{-1} * ngdp{-1} ...
+        + px * x ...
+        - pm * m;
+
+    rnfa = sigma*rw_fcy{-1}*e/e{-1} + (1-sigma)*r;
+
+    r = rw_fcy * e{+1}/e;
+
+    rh*(1 - zh) = r;
+
+    zh = _____________________________;
+
+    pm = e * pm_fcy;
+
+    px = e * px_fcy;
+
+    pm_fcy = 1;
+
+    px_fcy = t * pm_fcy;
+
+    t = 1;
+
+
+
