@@ -1,41 +1,84 @@
 !variables
 
-    yg
-    yg_gap
-    yg_tnd
-    bg_to_ny
+    "Real government demand" yg
+    "Real government demand gap" yg_gap
+    "Real government demand trend" yg_tnd
+    "Net government assets to GDP ratio, annualized" nga_to_4ny
+    "Net government revenues to GDP ratio" vg_to_ny
+    "Net government revenues to GDP ratio gap" vg_to_ny_gap
+    "Sovereign risk" zg
+    "Real government demand, Rate of change" roc_yg
+
+
+!log-variables !all-but
+
+    nga_to_4ny
     vg_to_ny
+    vg_to_ny_gap
+    zg
 
 
 !parameters
 
     ss_yg_to_y
-    ss_bg_to_ny
+    ss_nga_to_4ny
 
+    c0_yg
+    c1_yg
+    c0_vg_to_ny
     c1_vg_to_ny
 
+    c1_zg
+    c2_zg
+    c3_zg
+    c4_zg
+    c5_zg
 
-!log-variables !all-but
 
-    bg_to_ny
-    vg_to_ny
+!shocks
+
+    "Shock to real government demand" shock_yg
+    "Shock to net government revenues" shock_vg_to_ny
+
+
+!substitutions
+
+    ss_zg := glogc1(-ss_nga_to_4ny, c1_zg, c2_zg, c3_zg, c4_zg, c5_zg);
 
 
 !equations
 
     yg = yg_tnd * yg_gap; 
 
-    py * yg = ss_yg_to_y * py * y;
 
-    bg_to_ny * ny = ...
-        + (1 + r{-1}) * bg_to_ny{-1} * ny{-1} ...
+    log(yg) = ...
+        + c0_yg * log(&roc_yg * yg{-1}) ...
+        + (1 - c0_yg) * log(yg_tnd) ...
+        + c1_yg * (nga_to_4ny{+4} - ss_nga_to_4ny) ...
+        + shock_yg ...
+    !! yg = yg_tnd;
+
+
+    nga_to_4ny * 4 * ny = ...
+        + (1 + r{-1}) * nga_to_4ny{-1} * 4 * ny{-1} ...
         - py * yg ...
         + vg_to_ny * ny;
 
-    vg_to_ny = ...
-        + &vg_to_ny ...
-        - c1_vg_to_ny * (bg_to_ny - ss_bg_to_ny) ...
-    !! bg_to_ny = ss_bg_to_ny;
 
-    zg = glogc1(-bg_to_ny, 0.5/400, 0.10, -1.2, -0.5/400, 20/400);
+    vg_to_ny = ...
+        + c0_vg_to_ny * vg_to_ny{-1} ...
+        + (1 - c0_vg_to_ny) * &vg_to_ny ...
+        - c1_vg_to_ny * (nga_to_4ny{+4} - ss_nga_to_4ny) ...
+        + shock_vg_to_ny ...
+    !! nga_to_4ny = ss_nga_to_4ny;
+
+
+    vg_to_ny_gap = vg_to_ny - &vg_to_ny ...
+    !! vg_to_ny_gap = 0;
+
+
+    zg = glogc1(-nga_to_4ny, c1_zg, c2_zg, c3_zg, c4_zg, c5_zg);
+
+
+    roc_yg = roc(yg);
 

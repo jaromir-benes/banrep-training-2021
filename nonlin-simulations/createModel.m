@@ -1,25 +1,51 @@
+%% Create and calibrate model object 
+
+
+%% Clear workspace
 
 close 
 clear all
 
+if ~exist("mat", "dir")
+    mkdir mat
+end
+
+
+%% Read model source files and create model object
+
 m = Model.fromFile([
-    "model-source/macro.model"
     "model-source/fiscal.model"
+    "model-source/macro.model"
     "model-source/world.model"
-], growth=true);
+], "growth", true);
+
+
+%% Calibrate model 
 
 p = struct();
 p = calibrate.macro(p);
 p = calibrate.world(p);
+p = calibrate.fiscal(p);
 
 m = assign(m, p);
-m.ss_yg_to_y = 0.20;
-m.ss_bg_to_ny = -0.50;
-m.c1_vg_to_ny = 0.5;
+
+
+%% Calculate steady state and first-order solution 
 
 m = steady(m);
-
 checkSteady(m);
-
 m = solve(m);
+
+table( ...
+    m, ["steadyLeveL", "steadyChange", "description"] ...
+    , "round", 8 ...
+    , "writeTable", "steadyState.xlsx" ...
+)
+
+disp(m)
+
+
+%% Save model to mat file 
+
+save mat/createModel.mat m
 
