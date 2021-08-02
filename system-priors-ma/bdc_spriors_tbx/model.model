@@ -1,0 +1,359 @@
+% General Model %
+
+!transition_variables
+
+'Real GDP (100*log)' 						L_GDP
+'Trend in Real GDP (100*log)' 				L_GDP_BAR
+'Output Gap (in %)' 						L_GDP_GAP
+'Quarterly Growth in Real GDP(in % pa)' 	DLA_GDP
+'Real GDP Growth YoY (in %)' 				D4L_GDP
+'Real GDP Trend Growth QoQ @ar (in %)' 		DLA_GDP_BAR
+
+'CPI (level, 100*log)' 						L_CPI
+'QoQ Inflation (in % @ar)' 					DLA_CPI
+'YoY Inflation (in %)' 						D4L_CPI
+
+'Core CPI excl. Food and Energy (level, 100*log)' L_CPIXFE
+'QoQ Core Inflation (in % @ar)' 				  DLA_CPIXFE
+'YoY Core Inflation (in %)' 					  D4L_CPIXFE
+'Real Marginal Cost - Core Inflation (in %)' 	  RMC
+
+'Food CPI (level, 100*log)' 					L_CPIF
+'QoQ Food Inflation (in % @ar)' 				DLA_CPIF
+'YoY Food Inflation (in %)' 					D4L_CPIF
+'Real Marginal Cost - Food Inflation (in %)' 	RMC_F
+
+'Energy CPI (level, 100*log)' 					L_CPIE
+'QoQ Energy Inflation (in % pa)' 				DLA_CPIE
+'YoY Energy Inflation (in %)' 					D4L_CPIE
+'Real Marginal Cost - Energy Inflation (in %)' 	RMC_E
+
+'Nominal Exchange Rate (CZK/EUR, 100*log)' 		 L_S
+'Nominal Exch. Rate Depreciation QoQ (in % @ar)' DLA_S
+'Nominal Exch. Rate Depreciation YoY (in % pa)'  D4L_S
+'Country Risk Premium (in % pa)' 				 PREM
+'Persistent Shock in Country Risk Premium (in % pa)' SHKN_PREM
+'Credit Premium (in % pa)' 						 CR_PREM
+
+'Nominal Policy Interest Rate (in % pa)' 		RS_UNC
+'MP Rate, Zero Bound (in % pa)' 				RS
+'Real Interest Rate (in % pa)' 					RR
+'Trend Real Interest Rate (in % pa)' 			RR_BAR
+'Real Interest Rate Gap (in pp)' 				RR_GAP
+
+'Nominal Policy Neutral Interest Rate (in % pa)' RSNEUTRAL
+
+'Real Exchange Rate (level, 100*log)' 				L_Z
+'Trend Real Exchange Rate (level, 100*log)' 		L_Z_BAR
+'Real Exchange Rate Gap (in %)' 					L_Z_GAP
+'Real Exchange Rate Depreciation QoQ (in % @ar)' 	DLA_Z
+'Trend Real Exchange Rate Depreciation QoQ (in % @ar)' DLA_Z_BAR
+
+'Real Monetary Condition Index (in % pa)' 			MCI
+'Inflation Target (in % pa)' 						D4L_CPI_TAR
+
+'Relative Price of Core to Headline CPI (level, 100*log)' 			L_RPXFE
+'Trend in Relative Price of Core to Headline CPI (level, 100*log)' 	L_RPXFE_BAR
+'Gap in Relative Price of Core to Headline CPI (in %)' 				L_RPXFE_GAP
+'Relative Price of Core to Headline CPI Growth QoQ (in % @ar)'		DLA_RPXFE_BAR
+
+'Relative Price of Food to Headline CPI (level, 100*log)' 			L_RPF
+'Trend in Relative Price of Food and Headline CPI (level, 100*log)' L_RPF_BAR
+'Gap in Relative Price of Food and Headline CPI (in %)' 			L_RPF_GAP
+'Relative Price of Food to Headline CPI Growth QoQ (in % @ar)' 		DLA_RPF_BAR
+
+'Relative Price of Energy to Headline CPI (level, 100*log)' 		 L_RPE
+'Trend in Relative Price of Energy to Headline CPI (level, 100*log)' L_RPE_BAR
+'Gap in Relative Price of Energy and Headline CPI (in %)' 			 L_RPE_GAP
+'Relative Price of Energy to Headline CPI Growth QoQ (in % @ar)' 	 DLA_RPE_BAR
+
+'World Food Price Index (level, in USD 100*log)' 					L_WFOOD
+'World Food Price Inflation QoQ (in % @ar)' 						DLA_WFOOD
+'Real World Food Price (level, 100*log)' 							L_RWFOOD
+'Trend Real World Food Price (level, 100*log)' 						L_RWFOOD_BAR
+'Real World Food Price Gap (in %)' 									L_RWFOOD_GAP
+'Real World Food Price Trend Growth QoQ (in % @ar)' 				DLA_RWFOOD_BAR
+
+'World Oil Price (level, in USD 100*log)' 							L_WOIL
+'World Oil Price Inflation QoQ (in % @ar)' 							DLA_WOIL
+'Real World Oil Price (level, 100*log)' 							L_RWOIL
+'Trend Real World Oil Price (level, 100*log)' 						L_RWOIL_BAR
+'Real World Oil Price Gap (in %)' 									L_RWOIL_GAP
+'Real World Oil Price Trend Growth QoQ (in % @ar)' 					DLA_RWOIL_BAR
+
+'Foreing Output Gap (in %)' 										L_GDP_RW_GAP
+'Foreing Nominal Interest Rate (in % pa)' 							RS_RW
+'Foreing Real Interest Rate (in % pa)' 								RR_RW 
+'Foreing Real Interest Rate Trend (in % pa)' 						RR_RW_BAR
+'Foreing Real Interest Rate Gap (in pp)' 							RR_RW_GAP
+'Foreing CPI (level, 100*log)' 										L_CPI_RW
+'Foreing Inflation  QoQ (in % @ar)' 								DLA_CPI_RW
+
+'Nominal Exchange Rate Target (level, 100*log)' 					L_S_TAR
+'Nominal Exchange Rate Target Depreciation QoQ (in % @ar)' 			DLA_S_TAR
+
+'Cummulated Output Gap' 											CUM_L_GDP_GAP
+
+'Corss Exchange Rate USD per EUR, (level, 100*log)'					L_S_CROSS 
+'Cross Exchange Rate Depreciation QoQ (in % @ar)' 					DLA_S_CROSS
+
+SHKN_L_CPI
+E_DLA_CPIXFE
+E_DLA_CPIF  
+E_DLA_CPIE  
+
+% ------------------------------------------------------------------------------- %
+!transition_shocks
+
+SHK_L_GDP_GAP, SHK_CR_PREM
+SHK_L_CPI, SHK_DLA_CPIXFE, SHK_DLA_CPIE, SHK_DLA_CPIF
+SHK_L_S, SHK_RS_UNC, SHK_RS, SHK_DLA_S_TAR, SHK_D4L_CPI_TAR
+SHK_L_GDP_RW_GAP, SHK_RS_RW, SHK_DLA_CPI_RW, SHK_RR_RW_BAR
+SHK_RR_BAR, SHK_DLA_Z_BAR, SHK_PREM, SHK_DLA_GDP_BAR
+SHK_DLA_S_CROSS
+SHK_L_RWFOOD_GAP, SHK_DLA_RWFOOD_BAR, SHK_L_RWOIL_GAP, SHK_DLA_RWOIL_BAR
+SHK_DLA_RPF_BAR, SHK_DLA_RPXFE_BAR
+% ------------------------------------------------------------------------------- %	%
+!parameters
+b1, b2, b3, b4, b5
+a1, a2, a3
+a21, a22, a23
+a31, a32
+e1, h2
+f1, f2, f3,
+h1
+g1, g2, g3
+
+rho_D4L_CPI_TAR, rho_DLA_RPF_BAR, rho_DLA_RPXFE_BAR 
+rho_SHKN_PREM, rho_DLA_Z_BAR, rho_RR_BAR
+rho_DLA_GDP_BAR
+rho_L_GDP_RW_GAP, rho_RS_RW
+rho_RR_RW_BAR, rho_DLA_CPI_RW
+rho_DLA_S_CROSS
+
+rho_L_RWFOOD_GAP, rho_DLA_RWFOOD_BAR
+rho_L_RWOIL_GAP, rho_DLA_RWOIL_BAR
+
+w_CPIE, w_CPIF
+
+ss_D4L_CPI_TAR
+ss_RR_BAR, ss_DLA_Z_BAR, ss_DLA_GDP_BAR
+ss_DLA_CPI_RW, ss_RR_RW_BAR
+ss_DLA_RPF_BAR, ss_DLA_RPXFE_BAR
+ss_DLA_RWFOOD_BAR, ss_DLA_RWOIL_BAR
+
+% ------------------------------------------------------------------------------- %
+!transition_equations
+'Aggregate demand'
+L_GDP_GAP = b1*L_GDP_GAP{-1} - b2*MCI + b3*L_GDP_RW_GAP + SHK_L_GDP_GAP;
+
+'Real monetary condition index'
+MCI = b4*(RR_GAP + CR_PREM) + (1-b4)*(-L_Z_GAP);
+
+'Credit Premium'
+CR_PREM = b5*CR_PREM{-1} + (1-b5)*(PREM - PREM{-1}) + SHK_CR_PREM;
+%CR_PREM = b5*CR_PREM{-1} + SHK_CR_PREM;
+
+'Core Inflation -- Excl. Food and Energy'
+DLA_CPIXFE =  a1*DLA_CPIXFE{-1} + (1-a1)*DLA_CPIXFE{1} + a2*RMC + SHK_DLA_CPIXFE;
+%DLA_CPIXFE =  a1*DLA_CPIXFE{-1} + (1-a1)*(DLA_CPI{1} + DLA_RPXFE_BAR{1}) + a2*RMC + SHK_DLA_CPIXFE;
+
+'Real Marginal Costs -- Core Inflation'
+RMC = a3*L_GDP_GAP + (1-a3)*(L_Z_GAP - L_RPXFE_GAP);
+
+'Food Price Inflation'
+DLA_CPIF = a21*DLA_CPIF{-1} + (1-a21)*DLA_CPIF{1} + a22*RMC_F + SHK_DLA_CPIF;
+%DLA_CPIF = a21*DLA_CPIF{-1} + (1-a21)*(DLA_CPI{1} + DLA_RPF_BAR{1}) + a22*RMC_F + SHK_DLA_CPIF;
+
+'Real Marginal Costs -- Food Price Inflation'
+RMC_F = a23*(L_RWFOOD_GAP + L_Z_GAP - L_RPF_GAP) + (1-a23)*L_GDP_GAP;
+
+'Energy Price Inflation'
+DLA_CPIE = a31*DLA_CPIE{-1} + (1-a31)*DLA_CPIE{1} + a32*RMC_E + SHK_DLA_CPIE;
+%DLA_CPIE = a31*DLA_CPIE{-1} + (1-a31)*(DLA_CPI{1} + DLA_RPE_BAR{1}) + a32*RMC_E + SHK_DLA_CPIE;
+
+'Real Marginal Costs -- Energy Price Inflation'
+RMC_E = L_RWOIL_GAP + L_Z_GAP - L_RPE_GAP;
+
+'Headline inflation'
+L_CPI = w_CPIE*L_CPIE + w_CPIF*L_CPIF + (1-w_CPIE-w_CPIF)*L_CPIXFE + SHKN_L_CPI;
+SHKN_L_CPI = SHKN_L_CPI{-1} + SHK_L_CPI;
+
+'Uncovered Interest Rate Parity (UIP)'
+% A. UIP with a backward-looking element ("persistent" exchange rate) [if e1=0, it becomes fully forward looking]
+L_S = (1-e1)*L_S{+1} + e1*(L_S{-1} + 2/4*(D4L_CPI_TAR - ss_DLA_CPI_RW + DLA_Z_BAR)) + (- RS_UNC + RS_RW + PREM)/4 + SHK_L_S;
+
+% B. UIP when the exchange rate is i)pegged, ii)managed, or iii)shifted to meet the inflation objective
+%L_S = h2*(L_S{-1} + DLA_S_TAR/4)+(1-h2)*((1-e1)*L_S{+1} + e1*(L_S{-1} + 2/4*(D4L_CPI_TAR - ss_DLA_CPI_RW + DLA_Z_BAR)) + (- RS_UNC + RS_RW + PREM)/4)+SHK_L_S;
+
+'Monetary policy reaction function'
+%% A. The standard rule
+RS_UNC = g1*RS_UNC{-1} + (1-g1)*(RSNEUTRAL + g2*(D4L_CPI{+3} - D4L_CPI_TAR{+3}) + g3*L_GDP_GAP) + SHK_RS_UNC;
+
+%% B. The rule modified for imperfect control over the domestic money market
+%RS_UNC = h1*(4*(L_S{+1} - L_S) + RS_RW + PREM) + (1-h1)*(g1*RS_UNC{-1} + (1-g1)*(RSNEUTRAL + g2*(D4L_CPI{+3} - D4L_CPI_TAR{+3}) + g3*L_GDP_GAP)) + SHK_RS_UNC;
+
+'Zero Bound'
+RS = RS_UNC;
+%RS = # myzif(RS_UNC);
+
+'Exchange Rate Target'
+DLA_S_TAR = f1*DLA_S_TAR{-1} + (1-f1)*(D4L_CPI_TAR - ss_DLA_CPI_RW + DLA_Z_BAR - f2*(D4L_CPI-D4L_CPI_TAR) - f3*L_GDP_GAP) + SHK_DLA_S_TAR;
+L_S_TAR = L_S_TAR{-1} + DLA_S_TAR/4;
+
+D4L_CPI_TAR = rho_D4L_CPI_TAR*D4L_CPI_TAR{-1} + (1-rho_D4L_CPI_TAR)*ss_D4L_CPI_TAR + SHK_D4L_CPI_TAR;
+
+'Relative Prices'
+L_RPXFE       = L_CPIXFE - L_CPI;
+L_RPXFE       = L_RPXFE_BAR + L_RPXFE_GAP;
+DLA_RPXFE_BAR = 4*(L_RPXFE_BAR - L_RPXFE_BAR{-1});
+
+L_RPF 	      = L_CPIF - L_CPI;
+L_RPF   	  = L_RPF_BAR + L_RPF_GAP;
+DLA_RPF_BAR   = 4*(L_RPF_BAR - L_RPF_BAR{-1});
+
+L_RPE 	       = L_CPIE - L_CPI;
+L_RPE   	   = L_RPE_BAR + L_RPE_GAP;
+DLA_RPE_BAR    = 4*(L_RPE_BAR - L_RPE_BAR{-1});
+
+0 = w_CPIE*L_RPE_BAR + w_CPIF*L_RPF_BAR + (1-w_CPIE-w_CPIF)*L_RPXFE_BAR + SHKN_L_CPI;
+% 0 = w_CPIE*L_RPE_GAP + w_CPIF*L_RPF_GAP + (1-w_CPIE-w_CPIF)*L_RPXFE_GAP + SHK_L_CPI;
+DLA_RPF_BAR   = rho_DLA_RPF_BAR*DLA_RPF_BAR{-1} + (1-rho_DLA_RPF_BAR)*ss_DLA_RPF_BAR + SHK_DLA_RPF_BAR;
+DLA_RPXFE_BAR = rho_DLA_RPXFE_BAR*DLA_RPXFE_BAR{-1} + (1-rho_DLA_RPXFE_BAR)*ss_DLA_RPXFE_BAR + SHK_DLA_RPXFE_BAR;
+'Expectations'
+E_DLA_CPIXFE = DLA_CPIXFE{1};
+E_DLA_CPIF   = DLA_CPIF{1};
+E_DLA_CPIE   = DLA_CPIE{1};
+
+'Inflations/Growth Rates'
+DLA_CPIXFE = 4*(L_CPIXFE - L_CPIXFE{-1});
+DLA_CPI    = 4*(L_CPI - L_CPI{-1});
+DLA_S      = 4*(L_S - L_S{-1});
+DLA_GDP    = 4*(L_GDP - L_GDP{-1});
+DLA_GDP_BAR = 4*(L_GDP_BAR - L_GDP_BAR{-1});
+DLA_Z 		= 4*(L_Z - L_Z{-1});
+DLA_CPIE  = 4*(L_CPIE - L_CPIE{-1});
+DLA_CPIF  = 4*(L_CPIF - L_CPIF{-1});
+
+D4L_CPI    = L_CPI - L_CPI{-4};
+D4L_CPIXFE = L_CPIXFE - L_CPIXFE{-4};
+D4L_CPIF   = L_CPIF - L_CPIF{-4};
+D4L_CPIE   = L_CPIE - L_CPIE{-4};
+D4L_S      = L_S - L_S{-4};
+D4L_GDP    = L_GDP - L_GDP{-4};
+
+'Definitions/Identities'
+RSNEUTRAL = RR_BAR + D4L_CPI{+1};
+
+RR = RS - D4L_CPI{+1};
+RR_GAP = RR - RR_BAR;
+
+L_Z = L_S + L_CPI_RW - L_CPI;
+L_Z_GAP = L_Z - L_Z_BAR;
+
+L_GDP_GAP = L_GDP - L_GDP_BAR;
+
+'Trends'
+DLA_Z_BAR{+1} = RR_BAR - RR_RW_BAR - PREM + SHKN_PREM;
+SHKN_PREM     = rho_SHKN_PREM*SHKN_PREM{-1} + SHK_PREM;
+
+DLA_Z_BAR = rho_DLA_Z_BAR*DLA_Z_BAR{-1} + (1-rho_DLA_Z_BAR)*ss_DLA_Z_BAR + SHK_DLA_Z_BAR;
+L_Z_BAR = L_Z_BAR{-1} + DLA_Z_BAR/4;
+
+RR_BAR = rho_RR_BAR*RR_BAR{-1} + (1-rho_RR_BAR)*ss_RR_BAR + SHK_RR_BAR;
+
+DLA_GDP_BAR = rho_DLA_GDP_BAR*DLA_GDP_BAR{-1} + (1-rho_DLA_GDP_BAR)*ss_DLA_GDP_BAR + SHK_DLA_GDP_BAR;
+
+'External Block'
+L_GDP_RW_GAP = rho_L_GDP_RW_GAP*L_GDP_RW_GAP{-1} + SHK_L_GDP_RW_GAP;
+RS_RW = rho_RS_RW*RS_RW{-1} + (1-rho_RS_RW)*(RR_RW_BAR + DLA_CPI_RW) + SHK_RS_RW;
+RR_RW = RS_RW - DLA_CPI_RW;
+RR_RW_BAR = rho_RR_RW_BAR*RR_RW_BAR{-1} + (1-rho_RR_RW_BAR)*ss_RR_RW_BAR + SHK_RR_RW_BAR;
+RR_RW_GAP = RR_RW - RR_RW_BAR;
+DLA_CPI_RW = rho_DLA_CPI_RW*DLA_CPI_RW{-1} + (1-rho_DLA_CPI_RW)*ss_DLA_CPI_RW + SHK_DLA_CPI_RW;
+L_CPI_RW = L_CPI_RW{-1} + DLA_CPI_RW/4;
+
+DLA_S_CROSS = rho_DLA_S_CROSS*DLA_S_CROSS{-1} + SHK_DLA_S_CROSS;
+DLA_S_CROSS = 4*(L_S_CROSS - L_S_CROSS{-1});
+
+'World oil prices'
+DLA_WOIL 	  = 4*(L_WOIL - L_WOIL{-1});
+L_RWOIL  	  = L_WOIL - L_S_CROSS - L_CPI_RW;
+L_RWOIL       = L_RWOIL_BAR + L_RWOIL_GAP;
+DLA_RWOIL_BAR = rho_DLA_RWOIL_BAR*DLA_RWOIL_BAR{-1} + (1-rho_DLA_RWOIL_BAR)*(ss_DLA_RWOIL_BAR) + SHK_DLA_RWOIL_BAR;
+DLA_RWOIL_BAR = 4*(L_RWOIL_BAR - L_RWOIL_BAR{-1});
+L_RWOIL_GAP   = rho_L_RWOIL_GAP*L_RWOIL_GAP{-1} + SHK_L_RWOIL_GAP;
+
+'World Food Prices'
+L_RWFOOD  	  = L_WFOOD - L_S_CROSS - L_CPI_RW;
+L_RWFOOD      = L_RWFOOD_BAR + L_RWFOOD_GAP;
+DLA_RWFOOD_BAR = rho_DLA_RWFOOD_BAR*DLA_RWFOOD_BAR{-1} + (1-rho_DLA_RWFOOD_BAR)*(ss_DLA_RWFOOD_BAR) + SHK_DLA_RWFOOD_BAR;
+DLA_RWFOOD_BAR = 4*(L_RWFOOD_BAR - L_RWFOOD_BAR{-1});
+L_RWFOOD_GAP   = rho_L_RWFOOD_GAP*L_RWFOOD_GAP{-1} + SHK_L_RWFOOD_GAP;
+DLA_WFOOD 	  = 4*(L_WFOOD - L_WFOOD{-1});
+
+'Cummulative Output Gap'
+CUM_L_GDP_GAP = CUM_L_GDP_GAP{-1} + L_GDP_GAP;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!if filter == true
+
+!measurement_variables
+OBS_L_GDP, OBS_L_S, OBS_L_CPI, OBS_RS
+OBS_DLA_CPIXFE, OBS_DLA_CPIF, OBS_DLA_CPIE
+OBS_L_CPI_RW, OBS_RS_RW
+OBS_L_WFOOD, OBS_L_WOIL
+OBS_L_S_CROSS
+OBS_L_GDP_RW_GAP
+OBS_D4L_CPI_TAR
+OBS_L_GDP_BAR
+OBS_L_Z_BAR
+OBS_RR_BAR
+OBS_L_RWFOOD_BAR
+OBS_L_RWOIL_BAR
+OBS_L_RPE_GAP
+
+
+!measurement_equations
+OBS_L_GDP        = L_GDP;
+OBS_L_S          = L_S;
+OBS_L_CPI        = L_CPI;
+OBS_RS           = RS;
+OBS_L_CPI_RW     = L_CPI_RW;
+OBS_RS_RW        = RS_RW;
+OBS_DLA_CPIXFE   = DLA_CPIXFE;
+OBS_DLA_CPIF     = DLA_CPIF;
+OBS_DLA_CPIE     = DLA_CPIE;
+OBS_L_WFOOD    = L_WFOOD;
+OBS_L_WOIL     = L_WOIL;
+OBS_L_S_CROSS  = L_S_CROSS;
+OBS_L_GDP_RW_GAP = L_GDP_RW_GAP;
+OBS_D4L_CPI_TAR  = D4L_CPI_TAR;
+OBS_L_GDP_BAR    = L_GDP_BAR;
+OBS_L_Z_BAR      = L_Z_BAR;
+OBS_RR_BAR       = RR_BAR;
+OBS_L_RWFOOD_BAR = L_RWFOOD_BAR;
+OBS_L_RWOIL_BAR  = L_RWOIL_BAR;
+OBS_L_RPE_GAP    = L_RPE_GAP;
+
+!else
+!end
+
+Legend
+L_CPI          log of price level
+RS_UNC     	   nominal interest rate (unconstrained by the zero bound)
+RR         	   real interest rate
+RSNEUTRAL_UNC  policy neutral rate (unconstrained by the zero bound)
+L_S            log of nominal exchange rate
+L_Z            log of real exchange rate
+L_GDP          log of gdp
+MCI            real monetary conditions index
+RMC            real marginal cost 
+_GAP           cyclical deviation from a trend
+_BAR           trend (equilibrium)
+ss_            steady-state value  
+DLA_           q-o-q change
+D4L_           y-o-y change  
+_RW_           foreign variable
+SHK_           shock
+OBS_           measurement variables
