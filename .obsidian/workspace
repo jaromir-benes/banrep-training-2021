@@ -1,0 +1,93 @@
+{
+  "main": {
+    "id": "a220dcecaf7a8929",
+    "type": "split",
+    "children": [
+      {
+        "id": "b1f2e67a383e6997",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "nonlin-simulations/README.md",
+            "mode": "preview"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cd212ef4a6139963",
+    "type": "split",
+    "children": [
+      {
+        "id": "23e10bee6e8768a9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9c86cc392a34ecda",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "37ee20e6d0e27566",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "a99941e30e00892a",
+    "type": "split",
+    "children": [
+      {
+        "id": "c1af1870b7a7a838",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5aad4d925fbcfd20",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "nonlin-simulations/README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "b1f2e67a383e6997",
+  "lastOpenFiles": [
+    "nonlin-simulations/README.md"
+  ]
+}
