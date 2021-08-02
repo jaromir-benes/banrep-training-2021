@@ -2,8 +2,8 @@
 
 Read the `README.md` files in each subfolder:
 
-* [Nonlinear simulations](`nonlin-simulations/README.md`)
+* [Nonlinear simulations](nonlin-simulations/README.md)
 
-* [System priors](`system-priors/README.md`)
+* [System priors](system-priors/README.md)
 
 
