@@ -4,6 +4,13 @@ This tutorial illustrates the definition and use of system priors in
 estimating a simple gap model.
 
 
+# Software requirements
+
+* Matlab R2019b or newer
+
+* Iris Toolbox Releasee 20210802 or newer
+
+
 ## Model source files
 
 The model source files are located in the `model-source/` subfolder. 

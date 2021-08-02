@@ -5,6 +5,7 @@
 
 close all
 clear
+iris.required(20210802)
 
 
 %% Read raw time series form FRED 
