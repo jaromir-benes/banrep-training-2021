@@ -7,9 +7,15 @@ including stock-flow relationships and sovereign risk function.
 
 ## Model source files
 
-The model source files are located in the `model-source/` subfolder. The
-model is split into three files, `macro.model`, `fiscal.model`, and
-`world.model` for convenience.
+The model source files are located in the `model-source/` subfolder. 
+
+The model is split into three files:
+
+* `model-sourcce/macro.model` for the local macro economy;
+
+* `model-source/fiscal.model` for the fiscal extension;
+
+* `model-source/world.model` for the rest of the world variables.
 
 The model contains three nonlinearities:
 

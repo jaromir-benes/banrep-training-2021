@@ -2,7 +2,7 @@
 close all
 clear
 
-hp = Model.fromFile("hp.model", "linear", true);
+hp = Model.fromFile("model-source/hp.model", "linear", true);
 hp = solve(hp);
 
 hp.std_shock_gap = 40;
