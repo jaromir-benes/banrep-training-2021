@@ -9,6 +9,11 @@ iris.required(20210802)
 
 load mat/createModel.mat m
 
+% m.ss_nga_to_4ny = -0.80;
+% m = steady(m);
+% checkSteady(m);
+% m = solve(m);
+
 
 %% Create initial steady state databank 
 
@@ -86,7 +91,7 @@ ch.CaptionFromComment = true;
 ch.Highlight = 0 : T;
 
 ch < ["y_gap", "yg_gap", "yh_gap"];
-ch < ["400*r", "roc_cpi", "cpi", "400*zg", "e"];
+ch < ["400*r", "roc_cpi", "cpi", "400*q", "100*z", "e"];
 ch < ["nga_to_4ny", "vg_to_ny"];
 draw(ch, chartDb);
 

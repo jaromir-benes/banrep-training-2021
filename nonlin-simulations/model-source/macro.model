@@ -1,4 +1,4 @@
-%% MESSr-NBU: Macro module 
+% Local macro module
 
 
 !variables
@@ -23,7 +23,8 @@
 
     "Inflation expectations" roc_cpi_exp
 
-    "Short-term cash rate" r
+    "Local short-term cash rate, LCY" r
+    "Local short-term cash rate, FCY" r_fcy
     "Unconstrained short-term cash rate" unc_r
     "Real short-term rate" rr
     "Real short-term rate gap" rr_gap
@@ -47,7 +48,7 @@
 
 !log-variables !all-but
 
-    r, unc_r, rr, r_tnd, rr_tnd, rr_gap 
+    r, r_fcy, unc_r, rr, r_tnd, rr_tnd, rr_gap 
     prem, prem_gap, prem_tnd
 
 
@@ -122,22 +123,42 @@
 
 !substitutions
 
-    ss_rr := [(1 + ss_rrw) * (1 + ss_prem) * ss_roc_re / (1 - $ss_zg$) - 1];
-    % ss_prem := ((1 + ss_rr) * (1 - zg) / (1 + ss_rrw) / ss_roc_re - 1);
-    ss_roc_e := (ss_roc_re * ss_roc_cpi / ss_roc_cpiw);
+    ss_rr := [(1 + ss_rrw_fcy) * (1 + ss_prem) * ss_roc_re / (1 - $ss_q$) - 1];
+    ss_roc_e := (ss_roc_re * ss_roc_cpi / ss_roc_cpiw_fcy);
 
 
 !equations
 
 % GDP
 
-    "GDP trend-gap decomposition"
+    "Trend-gap decomposition of real GDP"
     y = y_tnd * y_gap;
 
+
+    "Decomposition of real GDP into private and government demand"
+    y = yh + yg;
+
+
+    "Definition of government demand trend"
     yg_tnd = ss_yg_to_y * y_tnd;
+
+
+    "Definition of private demand trend"
     yh_tnd = (1 - ss_yg_to_y) * y_tnd;
 
-    y_gap = (1-ss_yg_to_y)*yh_gap + ss_yg_to_y*yg_gap;
+
+    "GDP deflator assumptions"
+    log(roc_py) = log(roc_cpi) + shock_roc_py ...
+    !! roc_py = roc_cpi;
+
+
+    "Nominal GDP identity"
+    ny = py * y;
+
+
+% Private demand
+
+    "Trend-gap decomposition of private demand"
     yh = yh_tnd * yh_gap;
 
 
@@ -155,6 +176,8 @@
     !! yh_gap = 1;
 
 
+% Potential GDP
+
     "GDP trend (potential GDP) assumptions"
     log(roc_y_tnd) = ...
         + c0_roc_y_tnd * log(roc_y_tnd{-1}) ...
@@ -165,16 +188,7 @@
     !! roc_y_tnd = ss_roc_y;
 
 
-    "GDP deflator assumptions"
-    log(roc_py) = log(roc_cpi) + shock_roc_py ...
-    !! roc_py = roc_cpi;
-
-
-    "Nominal GDP identity"
-    ny = py * y;
-
-
-% Proxy for asset prices (Claims on future gdp)
+% Proxy for lifetime income
 
     "Discounted forward sum of real GDP, normalized to current"
     fws_y = ...
@@ -231,18 +245,15 @@
     rr_gap = rr - rr_tnd ...
     !! rr_gap = 0;
 
-    % rr_tnd = ...
-        % + c0_rr_tnd * rr_tnd{-1} ...
-        % + (1 - c0_rr_tnd) * $ss_rr$ ...
-        % + shock_rr_tnd ...
-        % + tune_rr_tnd ...
-    % !! rr_tnd = $ss_rr$;
+
+% Exchange rate
+
+    "Arbitrage between issuers"
+    (1 + r_fcy) * (1 - q) = (1 + rw_fcy);
 
 
-% Exchange Rate
-
-    "Uncovered interest parity"
-    (1 + r + c1_e*(unc_r - r)) * (1 - zg) = (1 + rw) * e_exp/e * (1 + prem) * exp(shock_e) ...
+    "Arbitrage between currency"
+    (1 + r) = (1 + r_fcy) * e_exp/e * (1 + c1_e*(r - unc_r)) * (1 + prem) * exp(shock_e) ...
     !! roc_e = $ss_roc_e$;
 
 
@@ -252,7 +263,7 @@
 
 
     "Real interest rate trend"
-    (1 + rr_tnd) * (1 - $ss_zg$) = (1 + rrw_tnd) * roc_re_tnd{+1} * (1 + prem_tnd) ...
+    (1 + rr_tnd) * (1 - $ss_q$) = (1 + rrw_fcy_tnd) * roc_re_tnd{+1} * (1 + prem_tnd) ...
     !! rr_tnd = $ss_rr$;
 
     
@@ -277,7 +288,7 @@
 
 
     "Real exchange rate definition"
-    re = e * cpiw / cpi;
+    re = e * cpiw_fcy / cpi;
 
 
     "Real exchange rate trend-gap decomposition"
@@ -294,7 +305,7 @@
 
 
     "Nominal exchange rate depreciation gap"
-    roc_e_gap = roc_e / (roc_re_tnd / &roc_cpiw*&roc_cpi);
+    roc_e_gap = roc_e / (roc_re_tnd / &roc_cpiw_fcy * &roc_cpi);
 
 
 % Rates of change

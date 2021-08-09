@@ -3,8 +3,8 @@
 
 %% Clear workspace
 
-close 
-clear all
+close all
+clear
 iris.required(20210802)
 
 if ~exist("mat", "dir")
@@ -34,6 +34,7 @@ m = assign(m, p);
 %% Calculate steady state and first-order solution 
 
 m = steady(m);
+s = access(m, "steadyLevel");
 checkSteady(m);
 m = solve(m);
 
@@ -44,6 +45,7 @@ table( ...
 )
 
 disp(m)
+
 
 
 %% Save model to mat file 

@@ -9,9 +9,12 @@
 
 ## Overview
 
-* Creating a stacked time system
+* Stacked time system
+
 * Simulation procedure and terminal condition
+
 * Changes in information sets
+
 
 ---
 
@@ -32,9 +35,13 @@ $$
 where
 
 * $n$ is the number of model equations
+
 * $x_t$ is an $n \times 1$ vector model variables
+
 * $\mathrm E_t\!\left[\cdot\right]$ is a conditional expectations operator
+
 * $k$ is the maximum lag
+
 * $m$ is the maximum lead
 
 
@@ -60,6 +67,7 @@ where
 ## Stacked time system of equations and unknowns
 
 * A total of $n \cdot T$ equations
+
 * A total of $n \cdot T$ unknows, $x_t,\ t = 1, \dots, T$
 
 <br/>
@@ -87,13 +95,16 @@ $$
 Initialize
 
 * Create an $n\times (T+k+m)$ matrix
+
 * Fill in initial condition in columns $1, \dots, k$
 
 In each iteration
 
 * Fill in the simulation range columns
+
 * Taking the last simulation range columns as initial condition, use the
   first order simulator to fill in terminal codnition 
+  
 * Evaluate the LHS–RHS discrepancy for all $n\times T$ equations and send
   this information to the solver
 

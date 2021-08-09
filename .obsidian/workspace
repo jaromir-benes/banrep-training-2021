@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "b1f2e67a383e6997",
+        "id": "49c0f6f367ad1616",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "nonlin-simulations/README.md",
+            "file": "nonlin-simulations/docs/intro-nonlinear.md",
             "mode": "preview"
           }
         }
@@ -52,7 +52,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200.50868225097656
   },
   "right": {
     "id": "a99941e30e00892a",
@@ -68,7 +68,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "nonlin-simulations/README.md",
+                "file": "nonlin-simulations/docs/intro-nonlinear.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -76,6 +76,16 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "fef39dd16b858318",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "nonlin-simulations/docs/intro-nonlinear.md"
               }
             }
           }
@@ -86,8 +96,13 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "b1f2e67a383e6997",
+  "active": "49c0f6f367ad1616",
   "lastOpenFiles": [
+    "nonlin-simulations/docs/intro-nonlinear.md",
+    "nonlin-simulations/docs/stacked-time.md",
+    "nonlin-simulations/docs/nonlinear-solver.md",
+    "nonlin-simulations/docs/fiscal.md",
+    "title-page.md",
     "nonlin-simulations/README.md"
   ]
 }

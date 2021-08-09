@@ -1,26 +1,26 @@
-%% MESSr-NBU: Rest of world macro module 
+% Rest of world module
 
 
 !variables
 
     "Foreign demand gap" yw_gap
-    "Foreign short-term rate, FCY" rw
-    "Foreign real short-term rate, FCY" rrw_tnd
-    "Foreign CPI" cpiw
-    "Foreign CPI, Rate of change" roc_cpiw
+    "Foreign short-term rate, FCY" rw_fcy
+    "Foreign real short-term rate, FCY" rrw_fcy_tnd
+    "Foreign CPI, FCY" cpiw_fcy
+    "Foreign CPI, FCY, Rate of change" roc_cpiw_fcy
 
 
 !log-variables !all-but
 
-    rw, rrw_tnd
+    rw_fcy, rrw_fcy_tnd
 
 
 !parameters
 
     % Directly calibrate steady state properties
 
-    "S/S Real short-term rate, foreign currency" ss_rrw
-    "S/S Foreign CPI, Rate of change" ss_roc_cpiw
+    "S/S Real short-term rate, foreign currency" ss_rrw_fcy
+    "S/S Foreign CPI, Rate of change" ss_roc_cpiw_fcy
 
 
     % Dynamic parameters
@@ -46,7 +46,7 @@
 
 !substitutions
 
-    ss_rw := ((1 + ss_rrw) * ss_roc_cpiw - 1);
+    ss_rw := ((1 + ss_rrw_fcy) * ss_roc_cpiw_fcy - 1);
 
 
 !equations
@@ -60,39 +60,39 @@
 
 
     "Short-term rate, FCY"
-    rw ...
-        = c0_rw * rw{-1} ...
+    rw_fcy ...
+        = c0_rw * rw_fcy{-1} ...
         + (1 - c0_rw) * $ss_rw$ ...
         + tune_rw ...
         + shock_rw ...
-    !! rw = $ss_rw$;
+    !! rw_fcy = $ss_rw$;
 
 
     "Real foreign short-term rate trend, FCY"
-    rrw_tnd = ...
-        + c0_rrw_tnd * rrw_tnd{-1} ...
-        + (1 - c0_rrw_tnd) * ss_rrw ...
+    rrw_fcy_tnd = ...
+        + c0_rrw_tnd * rrw_fcy_tnd{-1} ...
+        + (1 - c0_rrw_tnd) * ss_rrw_fcy ...
         + tune_rrw_tnd ...
         + shock_rrw_tnd ...
-    !! rrw_tnd = ss_rrw;
+    !! rrw_fcy_tnd = ss_rrw_fcy;
 
 
     "Foreign CPI inflation"
-    log(roc_cpiw) ...
-        = c0_roc_cpiw * log(roc_cpiw{-1}) ...
-        + (1 - c0_roc_cpiw) * log(ss_roc_cpiw) ...
+    log(roc_cpiw_fcy) ...
+        = c0_roc_cpiw * log(roc_cpiw_fcy{-1}) ...
+        + (1 - c0_roc_cpiw) * log(ss_roc_cpiw_fcy) ...
         + tune_roc_cpiw ...
         + shock_roc_cpiw ...
-    !! roc_cpiw = ss_roc_cpiw;
+    !! roc_cpiw_fcy = ss_roc_cpiw_fcy;
 
-    roc_cpiw = cpiw / cpiw{-1};
+    roc_cpiw_fcy = cpiw_fcy / cpiw_fcy{-1};
 
 
 !autoswaps-simulate
 
     yw_gap := tune_yw_gap;
-    roc_cpiw := tune_roc_cpiw;
-    rw := tune_rw;
-    rrw_tnd := tune_rrw_tnd;
+    roc_cpiw_fcy := tune_roc_cpiw;
+    rw_fcy := tune_rw;
+    rrw_fcy_tnd := tune_rrw_tnd;
 
 

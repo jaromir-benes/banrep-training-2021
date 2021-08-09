@@ -1,0 +1,41 @@
+
+.markdown-source-view {
+    font-family: "Codelia Ligatures Dotted Zero";
+}
+
+.markdown-preview-view .markdown-embed {
+    border-width: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.markdown-embed .markdown-preview-view {
+    padding: 0px;
+}
+
+.markdown-embed-title, .markdown-embed-link {
+    display: none;
+}
+
+:root {
+    --reveal-font: "Fira Sans";
+}
+
+.reveal h1 {
+    text-transform: none;
+}
+
+@media print {
+    hr {
+        page-break-after: always;
+        visibility: hidden;
+    }
+}
+
+@media screen {
+    hr {
+        margin-bottom: 1000px;
+        visibility: hidden;
+    }
+}
+

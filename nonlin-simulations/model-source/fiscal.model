@@ -1,3 +1,6 @@
+% Fiscal module
+
+
 !variables
 
     "Real government demand" yg
@@ -6,8 +9,9 @@
     "Net government assets to GDP ratio, annualized" nga_to_4ny
     "Net government revenues to GDP ratio" vg_to_ny
     "Net government revenues to GDP ratio gap" vg_to_ny_gap
-    "Sovereign risk" zg
-    "Real government demand, Rate of change" roc_yg
+    "Expected losses on sovereign" q
+    "Sovereign risk factor" z
+    "Effective ex-post rate on net government assets" rx
 
 
 !log-variables !all-but
@@ -15,24 +19,26 @@
     nga_to_4ny
     vg_to_ny
     vg_to_ny_gap
-    zg
+    q, z
+    rx
 
 
 !parameters
 
-    ss_yg_to_y
-    ss_nga_to_4ny
+    "S/S Government demand to GDP ratio" ss_yg_to_y
+    "S/S Net government assets to GDP ratio" ss_nga_to_4ny
+    "Dollarization of net government assets" kappa
 
     c0_yg
     c1_yg
     c0_vg_to_ny
     c1_vg_to_ny
 
-    c1_zg
-    c2_zg
-    c3_zg
-    c4_zg
-    c5_zg
+    c1_q
+    c2_q
+    c3_q
+    c4_q
+    c5_q
 
 
 !shocks
@@ -43,28 +49,39 @@
 
 !substitutions
 
-    ss_zg := glogc1(-ss_nga_to_4ny, c1_zg, c2_zg, c3_zg, c4_zg, c5_zg);
+    ss_q := glogc1(-(1 + rx)*ss_nga_to_4ny/(ss_roc_y * ss_roc_cpi), c1_q, c2_q, c3_q, c4_q, c5_q);
 
 
 !equations
 
+
+    "Dynamic government budget equation"
+    nga_to_4ny * 4 * ny = ...
+        + (1 + rx) * nga_to_4ny{-1} * 4 * ny{-1} ...
+        - py * yg ...
+        + vg_to_ny * ny;
+
+
+    "Effective ex-post rate on net government assets"
+    (1 + rx) = ...
+        + (1 - kappa) * (1 + r{-1}) ...
+        + kappa * (1 + r_fcy{-1}) * e/e{-1};
+
+
+    "Trend-gap decomposition of government demand"
     yg = yg_tnd * yg_gap; 
 
 
+    "Government purchases of goods and services"
     log(yg) = ...
-        + c0_yg * log(&roc_yg * yg{-1}) ...
+        + c0_yg * log(&roc_y * yg{-1}) ...
         + (1 - c0_yg) * log(yg_tnd) ...
         + c1_yg * (nga_to_4ny{+4} - ss_nga_to_4ny) ...
         + shock_yg ...
     !! yg = yg_tnd;
 
 
-    nga_to_4ny * 4 * ny = ...
-        + (1 + r{-1}) * nga_to_4ny{-1} * 4 * ny{-1} ...
-        - py * yg ...
-        + vg_to_ny * ny;
-
-
+    "Net nominal government revenues to GDP ratio"
     vg_to_ny = ...
         + c0_vg_to_ny * vg_to_ny{-1} ...
         + (1 - c0_vg_to_ny) * &vg_to_ny ...
@@ -73,12 +90,15 @@
     !! nga_to_4ny = ss_nga_to_4ny;
 
 
+    "Gap in net nominal government revenues to GDP ratio"
     vg_to_ny_gap = vg_to_ny - &vg_to_ny ...
     !! vg_to_ny_gap = 0;
 
 
-    zg = glogc1(-nga_to_4ny, c1_zg, c2_zg, c3_zg, c4_zg, c5_zg);
+    "Expected losses on sovereign"
+    q = glogc1(z, c1_q, c2_q, c3_q, c4_q, c5_q);
 
 
-    roc_yg = roc(yg);
+    "Sovereign risk factor"
+    z = -(1 + rx{+1}) * nga_to_4ny * ny/ny{+1};
 
