@@ -221,7 +221,7 @@ Sovereign credit risk: Arbitrage between sovereign debt issued in different area
 in the same (foreign) currency
 
 $$
-(1 + r_t^\fcy) \, (1 - zg_t) = (1 + rw^\fcy_t) 
+(1 + r_t^\fcy) \, (1 - q_t) = (1 + rw^\fcy_t) 
 $$
 
 

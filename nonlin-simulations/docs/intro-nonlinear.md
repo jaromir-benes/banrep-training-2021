@@ -50,7 +50,7 @@ $\theta_t = \left[
 
 
 * Conditional expectations of shocks:
-$\E{t-1} \left[x_t\right] = \E{t-2} \left[x_t\right] = \cdots = 0$
+$\E{t-1} \left[\epsilon_t\right] = \E{t-2} \left[\epsilon_t\right] = \cdots = 0$
 
 * Conditional higher moments:
 $\E{t-1}\left[ \epsilon_t\, \epsilon_t{}' \right] =
@@ -222,12 +222,12 @@ $$
 \begin{gathered}
 f_1\left( x_{-1}, x_1, x_{2}, \epsilon_1 \ \middle| \ \theta \right) = 0 \\[10pt]
 \vdots \\[10pt]
-f_k\left( x_{t-1}, x_t, x_{2}, \epsilon_1 \ \middle| \ \theta \right) = 0 \\[10pt]
+f_n\left( x_{t-1}, x_t, x_{2}, \epsilon_1 \ \middle| \ \theta \right) = 0 \\[10pt]
 \vdots \\[10pt]
 \vdots \\[10pt]
 f_1\left( x_{T-1}, x_T, x_{T+1}, \epsilon_T \ \middle| \ \theta \right) = 0 \\[10pt]
 \vdots \\[10pt]
-f_k\left( x_{T-1}, x_T, x_{T+1}, \epsilon_T \ \middle| \ \theta \right) = 0
+f_n\left( x_{T-1}, x_T, x_{T+1}, \epsilon_T \ \middle| \ \theta \right) = 0
 \end{gathered}
 $$
 

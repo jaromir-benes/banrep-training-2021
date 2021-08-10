@@ -24,10 +24,10 @@ System of $n$ dynamic conditional-expectations equations
 
 $$
 \begin{gathered}
-\mathrm E_t \bigl[\ f_1\left(x_{t-k}, \dots, x_{t+m} \right) \ \bigr] = 0 \\[5pt]
-\mathrm E_t \bigl[\ f_2\left(x_{t-k}, \dots, x_{t+m} \right) \ \bigr] = 0 \\[5pt]
+\mathrm E_t \bigl[\ f_1\left(x_{t-k}, \dots, x_{t+m}, \epsilon_t \ \middle| \ \theta \right) \ \bigr] = 0 \\[5pt]
+\mathrm E_t \bigl[\ f_2\left(x_{t-k}, \dots, x_{t+m}, \epsilon_t \ \middle| \ \theta \right) \ \bigr] = 0 \\[5pt]
 \vdots \\[5pt]
-\mathrm E_t \bigl[\ f_n\left(x_{t-k}, \dots, x_{t+m} \right) \ \bigr] = 0
+\mathrm E_t \bigl[\ f_n\left(x_{t-k}, \dots, x_{t+m}, \epsilon_t \ \middle|\ \theta \right) \ \bigr] = 0
 \end{gathered}
 \notag
 $$
@@ -176,7 +176,7 @@ Syntax of the `simulate` function for the stacked time method
 ```
 [outputDb, info, frameDb] = simulate( ...
     model, inputDb, range ...
-    , method="stacked" ...
+    , "method", "stacked" ...
 );
 ```
 
