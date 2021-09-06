@@ -1,0 +1,75 @@
+%% Simple exogenous growth model code: Stationarized
+%
+% In this model code, we stationarize the unit-root variables (output,
+% consumption, investment, capital) by dividing them by the level of
+% productivity. The properties of this version of the model are identical
+% to the properties of the model with unit roots preserved,
+% `exogenousGrowth.model`.
+%
+
+
+%% Declare transition (aka endogenous) variables
+
+!transition-variables
+
+    "Output to Productivity" y, "Consumption to Productivity" c, "Investment to Productivity" i
+    "Capital to Productivity" k, "Labor" L
+    "Rate of Change in Productivity" dA
+    "Real Rate of Interest" r
+%
+
+
+%% Declare parameters
+
+!parameters
+
+    g, gamma, delta, beta
+%
+
+
+%% Declare shocks to transition equations
+
+!transition-shocks
+
+    "Productivity Shock" u
+%
+
+
+%% Write transition (aka endogenous) equations
+
+!transition-equations
+
+    c{1}/c * dA{1} = beta*(1 + r);
+    L = 1;
+
+    y = L^gamma * (k{-1}/dA)^(1-gamma);
+    (1-gamma)*y{1}/k * dA{1} = r + delta;
+    k = (1-delta)*(k{-1}/dA) + i;
+
+    log(dA) = log(g) + u;
+
+    y = c + i;
+%
+
+
+%% Control linearized vs log-linearized variables
+%
+% In a stationary model, it does not matter much whether the variables are
+% linearized or log-linearized. We log-linearized most of them here for two
+% reasons:
+%
+% # to make the outcomes of the various experiments directly comparable
+% with the outcomes of the unit-root version of the model,
+% `exog_growth_unit_root.model`;
+%
+% # because the shock responses, autocovariance functions, and other
+% characteristics can then directly interpreted in terms of percent
+% fluctuations in the variables (which is what we do most of the time in
+% economics).
+
+!log_variables !all-but
+
+    r
+
+%
+

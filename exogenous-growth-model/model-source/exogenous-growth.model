@@ -1,0 +1,83 @@
+%% Simple exogenous growth model code: Unit root preserved
+%
+% In this model code, we preserve the unit root in the variables (output,
+% consumption, investment, capital). The model equations correspond to the
+% original first-order conditions and budget constraints without any
+% transformation. The properties of this version of the model are identical
+% to the properties of the stationarized model,
+% `exog_growth_stationarized.model`.
+%
+
+
+%% Declare transition (aka endogenous) variables
+
+!transition-variables
+
+    "Output" Y, "Consumption" C, "Investment" I
+    "Capital" K, "Productivity" A, "Labour" L
+    "Rate of change in productivity" dA
+    "Real rate of interest" r
+
+    "Output to Productivity" y, "Consumption to Productivity" c,
+    "Investment to Productivity" i, "Capital to Productivity" k
+%
+
+
+%% Declare parameters
+
+!parameters
+
+    g, gamma, delta, beta
+%
+
+
+%% Declare shocks to transition equations
+
+!transition-shocks
+
+    "Productivity shock" u
+%
+
+
+%% Write transition (aka endogenous) equations
+
+!transition-equations
+
+    1/C = beta*(1 + r)/C{1};
+    L = 1;
+
+    Y = (A*L)^gamma * K{-1}^(1-gamma);
+    (1-gamma)*Y{1}/K = r + delta;
+    K = (1-delta)*K{-1} + I;
+
+    log(A) = log(A{-1}) + log(g) + u;
+    dA = A/A{-1};
+
+    Y = C + I;
+
+    y = Y/A;
+    c = C/A;
+    i = I/A;
+    k = K/A;
+%
+
+
+%% Control linearized vs log-linearized variables
+%
+% For the unit-root version of the model to have a valid first-order
+% solution it is critical that the unit-root variables (output,
+% consumption, investment, capital) be log-linearized, not linearized. Only
+% then are the co-integrating relationships linear.
+%
+% It does not matter whether the stationary varibles (such as the interest
+% rate or the transformed output-to-productivity) are linearized or
+% log-linearized.
+%
+
+
+!log-variables !all-but
+    r
+
+%
+
+
