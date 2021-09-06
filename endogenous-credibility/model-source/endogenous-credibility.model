@@ -1,0 +1,154 @@
+%% Endogenous Credibility Model
+%
+% This is the model source file for a simple monetary policy model with two
+% nonlinearities: a convex Phillips curve, and endogenous credibility of
+% the central bank.
+%
+
+%% Declare variables
+
+!transition-variables
+
+    "Output" y
+    "Output gap" y_gap
+    "Potential output" y_tnd
+    "Inflation Q/Q" pie
+    "Inflation Y/Y" pie4
+    "Policy rate" r 
+    "Unconstrained policy rate" r_unc
+    "Inflation target" targ
+    "Central bank credibility" c 
+    "Signal to credibility" s
+
+%
+
+%% Declare parameters
+
+!parameters
+
+    ss_rr, ss_pie
+
+    disc
+    slope_r
+
+    rho_y_tnd
+    rho_y_gap, alpha, sigma
+    beta, gamma, delta,
+    rho_r, kappa, rho_targ
+    rho_c, omega
+
+%
+
+%% Declare shocks
+
+
+!transition-shocks(:cond)
+
+    "Potential output shock" shk_y_tnd
+    "Demand shock" shk_y_gap
+    "Cost-push shock" shk_pie
+    "Change in inflation target" shk_targ
+    "Monetary policy shock" shk_r
+
+%
+
+!transition-shocks
+    shk_y_gap2, shk_r2
+
+%% Write equations
+%
+% Brief discussion of the nonlinearities
+%
+% # The Phillips curve has the following form:
+%    $$ \pi_t - \pi_{t-1} = \beta_t^\star \, \mathrm E_t \left[ \pi_{t+1} -
+%    \pi_t \right] + \gamma \tfrac{1}{\delta} \left( \exp\delta y_t - 1
+%    \right) + \epsilon_{\pie, t}, $$
+% where the forward-lookingness of inflation, $\hat\beta$, is affected by
+% central-bank crediblity, $c_t \in [0, 1]$:
+% $$ \beta^\star_t := c_t \cdot \beta. $$
+% and $\beta\in(0, 1)$ is a fixed parameter (attained at full credibility).
+% In other words, the lower the central bank credibility, the greater
+% persistence in inflation, and vice versa.
+%
+% The function that describes the Phillips curve nonlinearity, i.e.
+% $\left( \exp\delta y_t - 1 \right)/\delta$ is an m-file function saved
+% under the name `nonlinpc.m`. It is adapted so as to be able to handle the
+% special case with $\delta=0$ (a linear Phillips curve).
+%
+% # The law of motion for credibility is as follows:
+%    $$ c_t = \psi c_{t-1} + (1-\psi) s_t,
+%    $$
+% where $s_t$ is a ``signal'' by which the credibility is updated. The
+% signal is given by
+%     $$ s_t = \exp \left(\omega\hat\pie^4_{t-1}\right)^2
+%     $$
+% where $\hat\pie^4_t$ is the deviation of current four-quarter inflation,
+% $\pie^4_t$, from the target, $\tau_t$:
+%    $$ \hat\pie^4_t = \pi_t - \tau_t.
+%    $$
+% In other words, credibility is damaged every time inflation deviates from
+% the target (either way), and the extent of it increases with the square
+% of the deviation.
+%
+
+
+!transition-equations
+
+    y = y_tnd + y_gap;
+
+    diff(y_tnd) = rho_y_tnd*diff(y_tnd{-1}) + shk_y_tnd 
+    !! y_tnd = 0;
+
+    "Aggregate Demand"
+    y_gap = 
+        + rho_y_gap*y_gap{-1} ...
+        + alpha*y_gap{1} - sigma*(r - pie{1} - ss_rr) ...
+        + shk_y_gap + shk_y_gap2;
+
+    "Phillips curve"
+    pie - pie{-1} =# ...
+        + c*beta*(pie{1} - pie) - 0.05*(pie4 - targ) ...
+        + gamma/delta*(exp(delta*y_gap)-1) ...
+        + shk_pie; 
+
+    "Monetary policy reaction function" 
+    r_unc = ... 
+        + rho_r*r{-1} ...
+        + (1-rho_r)*(ss_rr + targ + kappa*(pie4{3} - targ{3})) ...
+        + shk_r + shk_r2;
+
+    r =# slope_r*r_unc + (1-slope_r)*max(r_unc, 0);
+
+    "Y/Y Inflation"
+    pie4 = movavg(pie, -4);
+
+    "Inflation Target" 
+    targ = rho_targ*(targ{-1} + shk_targ) + (1-rho_targ)*ss_pie;
+
+    "Credibility Stock"
+    c = rho_c*c{-1} + (1-rho_c)*s;
+
+    "Credibility Signal" 
+    s =# exp(-(omega*(pie4{-1} - targ{-1}))^2);
+
+
+!measurement-variables
+
+    obs_y
+    obs_pie
+    obs_r
+
+% 
+
+!measurement-shocks
+
+    shk_obs_y
+
+!measurement-equations
+
+    obs_y = y + shk_obs_y;
+    obs_pie = pie;
+    obs_r = r;
+
+% 
+

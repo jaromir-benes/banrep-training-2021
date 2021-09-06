@@ -11,7 +11,7 @@ iris.required(20210802)
 %% Read raw time series form FRED 
 
 list = [
-    "GDPC1->gdp"
+    "GDPc0_rs->gdp"
     "CPILEGSL->cpi"
     "TB3MS->rs"
     "GS10->r10y"

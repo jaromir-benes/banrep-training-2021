@@ -13,13 +13,15 @@
     "Sovereign risk factor" z
     "Effective ex-post rate on net government assets" rx
 
+    q_at_100pct
+
 
 !log-variables !all-but
 
     nga_to_4ny
     vg_to_ny
     vg_to_ny_gap
-    q, z
+    q, z, q_at_100pct
     rx
 
 
@@ -39,6 +41,8 @@
     c3_q
     c4_q
     c5_q
+
+    zz
 
 
 !shocks
@@ -76,7 +80,7 @@
     log(yg) = ...
         + c0_yg * log(&roc_y * yg{-1}) ...
         + (1 - c0_yg) * log(yg_tnd) ...
-        + c1_yg * (nga_to_4ny{+4} - ss_nga_to_4ny) ...
+        + c1_yg * (nga_to_4ny{+8} - ss_nga_to_4ny) ...
         + shock_yg ...
     !! yg = yg_tnd;
 
@@ -85,7 +89,7 @@
     vg_to_ny = ...
         + c0_vg_to_ny * vg_to_ny{-1} ...
         + (1 - c0_vg_to_ny) * &vg_to_ny ...
-        - c1_vg_to_ny * (nga_to_4ny{+4} - ss_nga_to_4ny) ...
+        - c1_vg_to_ny * (nga_to_4ny{+8} - ss_nga_to_4ny) ...
         + shock_vg_to_ny ...
     !! nga_to_4ny = ss_nga_to_4ny;
 
@@ -102,3 +106,4 @@
     "Sovereign risk factor"
     z = -(1 + rx{+1}) * nga_to_4ny * ny/ny{+1};
 
+    q_at_100pct = glogc1(1, c1_q, c2_q, c3_q, c4_q, c5_q);

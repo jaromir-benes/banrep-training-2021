@@ -1,6 +1,6 @@
 # Intro to estimation and calibration using system priors
 
-![[title-page.md]]
+![[title-page]]
 
 
 ---
@@ -9,43 +9,50 @@
 
 * Traditionally, priors on individual parameters
 
-* However, more often than not we simply wish to control some properties of the model as a whole system: **system properties**
+* However, more often than not we simply wish to control the behavior of
+  the model as a whole system...
 
-* And not so much the individual parameters
-
+* ...not so much the individual parameters
 
 ---
 
-## Examples of system properties
+## Non-bayesian interpretation of priors
+
+* Shrinkage (or penalty) function
+
+* Keep the parameters close to our “preferred” values
+
+* ”Close” is defined by the shape/curvature of the shrinkage/penalty function
+
+* Example: Normal priors are equivalent to quadratic shrinkage/penalty
+
+---
+
+## Examples of system priors
+
 
 * Model-implied correlation between output and inflation
 
 * Model-implied sacrifice ratio
 
-* Frequency response function from output to potential output (band of periodicities ascribed to potential output)
+* Frequency response function from output to potential output (band of periodicities are passed into potential output)
 
 * Suppress secondary cycles in shock responses (e.g. more than 90% of a shock response has to occur within the first 10 quarter)
 
-* Make sure a type 2 policy error is costly (delays in the policy response to inflationary shocks calls for a larger reaction later)
+* Anything
 
-* Anything...
-
-* Even **qualitative** properties (e.g. sign restrictions) can be expressed
-  as system priors 
 
 ---
 
-## System priors formally
+## Independent individual marginals
+
 
 
 Posterior density
 
 $$
-\underbrace{ \ p\left(\theta \mid Y, m \right) \ }_{ \text{Posterior}}
-\propto
-\underbrace{\ p\left(Y \mid \theta, m\right)\ }_{\text{Data likelihood}}
-\times 
-\underbrace{\ p\left(\theta \mid m\right) \ }_{\text{Prior}}
+p\left(\theta \mid Y, m \right) \propto p\left(Y \mid \theta, m\right)
+\times p\left(\theta \mid m\right)
 $$
 
 
@@ -61,9 +68,33 @@ p_2\left(\theta_2 \mid m \right)
 p_n\left(\theta_n \mid m \right)
 $$
 
+Variance-bias trade-off
 
+---
 
-Complement or replace with density involving a property of the model as a whole, $h\left(\theta\right)$
+## Example: Normal independent individual marginals
+
+Equivalent to "ridge regression"
+
+<br/>
+
+$$
+\begin{gathered}
+\max\nolimits_{\{\theta\}} \ 
+\log p\left(Y \mid \theta, m\right)
++ \log p\left(\theta \mid m\right)
+\\[15pt]
+\equiv
+\max\nolimits_{\{\theta\}} \log p\left(Y \mid \theta, m\right)
+- \sum_{i=1}^n \left(\frac{\theta_i-\bar\theta_i}{\sigma} \right)^2
+\end{gathered}
+$$
+
+---
+
+## How to formalize system priors
+
+Complement (or replace) with density involving a property of the model as a whole, $h\left(\theta\right)$
 
 $$
 p\left(\theta \mid m \right) =
@@ -71,7 +102,7 @@ p_1\left(\theta_1 \mid m \right)
 \times \cdots \times
 p_n\left(\theta_n \mid m \right)
 \times
-{\color{highlight}
+\color{red}{
 q_1\bigl(h(\theta)\mid m\bigr)
 \times \cdots \times
 q_k\bigl(h(\theta)\mid m\bigr)
@@ -79,28 +110,15 @@ q_k\bigl(h(\theta)\mid m\bigr)
 $$
 
 
-
 ---
 
-## Benefits of system priors in estimation
+## Benefits of System Priors in Estimation
 
-* A relatively low number of system priors can push parameter estimates into a region where the properties of the model as a whole make sense and are well-behaved…
+* A relatively low number of system priors can push parameter estimates
+  into a region where the properties of the model as a whole make sense and
+  are well-behaved…
 
 * …without enforcing a tighter prior structure on individual parameters
-
-
-
----
-
-## Non-bayesian interpretation of priors: Penalty/shrinkage
-
-* Shrinkage (or penalty) function
-
-* Keep the parameters close to our “preferred” values
-
-* ”Close” is defined by the shape/curvature of the shrinkage/penalty function
-
-* Example: Normal priors are equivalent to quadratic shrinkage/penalty
 
 
 ---
@@ -157,7 +175,9 @@ $$
 
 ## Implemenation in IrisT
 
-The following `@Model` class functions (methods) can be used to construct a
+* Challenge: System priors are usually computationally intensive to evaluate
+
+* The following `@Model` class functions (methods) can be used to construct a
 `@SystemProperty` object for efficient evaluation of system properties
 
 | Function | Description |
@@ -166,4 +186,16 @@ The following `@Model` class functions (methods) can be used to construct a
 | `acf` | Autocovariance and autocorrelation functions |
 | `xsf` | Power spectrum and spectral density functions |
 | `ffrf` | Filter frequency response function |
+
+* The `@SystemProperty` objects are then collected in a `@SystemPriorWrapper`
+object, system prior densities are defined and the object is passed into
+the `estimate` function.
+
+---
+
+## Practical advice
+
+* Use lower/upper bounds
+
+* Always eyeball the shape of the log density 
 

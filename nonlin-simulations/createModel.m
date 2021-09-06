@@ -31,20 +31,20 @@ p = calibrate.fiscal(p);
 m = assign(m, p);
 
 
-%% Calculate steady state and first-order solution 
+%% Calculate steady state and first-order solution
 
-m = steady(m);
-s = access(m, "steadyLevel");
+m.y = 1;
+m = steady(m, blocks=false, fixLevel="y");
+
 checkSteady(m);
+
 m = solve(m);
 
 table( ...
-    m, ["steadyLeveL", "steadyChange", "description"] ...
+    m, ["steadyLevel", "steadyChange", "form", "description"] ...
     , "round", 8 ...
     , "writeTable", "steadyState.xlsx" ...
 )
-
-disp(m)
 
 
 

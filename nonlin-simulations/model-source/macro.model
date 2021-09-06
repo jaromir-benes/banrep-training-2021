@@ -172,8 +172,7 @@
         + c6_yh_gap * ss_yg_to_y/(1-ss_yg_to_y) * log(yg_gap) ...
         - c7_yh_gap * 1/(1-ss_yg_to_y) * vg_to_ny_gap ...
         + shock_yh_gap ...
-        + tune_yh_gap ...
-    !! yh_gap = 1;
+        + tune_yh_gap;
 
 
 % Potential GDP
@@ -204,11 +203,12 @@
         + c0_roc_cpi * log(roc_cpi{-1}) ...
         + (1 - c0_roc_cpi) * log(roc_cpi_exp) ...
         + curvexp(c1_roc_cpi * log(y_gap), 30) ...
-        + curvexp(c2_roc_cpi * log(re_gap), 30) ...
+        + curvexp(c2_roc_cpi * log(re_gap), 30) ...      
         + c3_roc_cpi * [ log(roc_re_gap) - c4_roc_cpi*log(roc_re_gap{-1}) ] ...
         + shock_roc_cpi ...
         + tune_roc_cpi ...
-    !! roc_cpi = ss_roc_cpi;
+    ... !! roc_cpi = ss_roc_cpi
+    ;
 
 
     "Inflation expectations"
@@ -230,20 +230,16 @@
             + c3_r*log(roc_e_gap) ...
         ] ...
         + shock_r ...
-        + tune_r ...
-    !! unc_r = r_tnd;
+        + tune_r;
 
-    r = max(unc_r, 0) ...
-    !! r = r_tnd;
 
-    1 + r_tnd = (1 + rr_tnd) * ss_roc_cpi ...
-    !! r_tnd = (1 + $ss_rr$) * ss_roc_cpi - 1;
+    r = max(unc_r, 0);
 
-    1 + rr = (1 + r) / roc_cpi_exp ...
-    !! rr = $ss_rr$;
+    (1 + r_tnd) = (1 + rr_tnd) * ss_roc_cpi;
 
-    rr_gap = rr - rr_tnd ...
-    !! rr_gap = 0;
+    1 + rr = (1 + r) / roc_cpi_exp;
+
+    rr_gap = rr - rr_tnd;
 
 
 % Exchange rate
@@ -258,8 +254,7 @@
 
 
     "Interest disparity"
-    prem = prem_tnd + prem_gap ...
-    !! prem = ss_prem;
+    prem = prem_tnd + prem_gap;
 
 
     "Real interest rate trend"
@@ -320,4 +315,14 @@
     !for cpi !do
         roc4_? = ? / ?{-4};
     !end
+
+
+
+!postprocessor
+
+    pct_r = 400*r;
+    pct_roc_cpi = 100*(roc_cpi^4 - 1);
+    pct_y_gap = 100*(y_gap - 1);
+    pct_nga_to_4ny = 100*nga_to_4ny;
+    sacrifice_ratio = sacrifice_ratio{-1} + pct_y_gap/4;
 
