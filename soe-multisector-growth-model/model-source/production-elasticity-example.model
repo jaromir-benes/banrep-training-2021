@@ -1,0 +1,65 @@
+
+!transition-variables
+
+    y, pa, pb
+
+    y1, a1, b1, py1
+    y2, a2, b2, py2
+    y3, a3, b3, py3
+
+
+!parameters
+
+    gamma
+    beta
+    xi
+    epsilon
+
+
+!transition-shocks
+
+    shk_y
+    shk_pa
+    shk_pb
+
+
+!substitutions
+
+    adj_a := (difflog(a2/y2) - beta*difflog(a2{+1}/y2{+1}));
+    adj_b := (difflog(b2/y2) - beta*difflog(b2{+1}/y2{+1}));
+    theta := ((epsilon-1)/epsilon);
+
+
+!transition-equations
+
+    log(pa) = log(pa{-1}) + shk_pa !! pa = 1;
+
+    log(pb) = log(pb{-1}) + shk_pb !! pb = 1;
+
+    log(y) = log(y{-1}) + shk_y !! y = 1;
+
+    y1 = y;
+    y2 = y;
+    y3 = y;
+
+    % Cobb-Douglas, no adjustment cost
+    y1 = a1^gamma * b1^(1-gamma);
+    gamma * py1 * y1 = pa * a1;
+    (1 - gamma) * py1 * y1 = pb * b1;
+
+
+    % Cobb-Doublas, adjustment cost
+    y2 = a2^gamma * b2^(1-gamma);
+
+    gamma * py2 * y2 = pa * a2 * (1 + xi * $adj_a$) ...
+        !! gamma * py2 * y2 = pa * a2;
+
+    (1 - gamma) * py2 * y2 = pb * b2 * (1 + xi * $adj_b$) ...
+        !! (1 - gamma) * py2 * y2 = pb * b2;
+
+
+    % General CES
+    y3^$theta$ = gamma*a3^$theta$ + (1-gamma)*b3^$theta$;
+    gamma * py3 * y3^(1/epsilon) = pa * a3^(1/epsilon);
+    (1 - gamma) * py3 * y3^(1/epsilon) = pb * b3^(1/epsilon);
+
