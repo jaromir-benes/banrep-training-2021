@@ -23,15 +23,15 @@ load mat/createModels.mat m1 m2 m3
 %
 
 d1 = steadydb(m1, 1:40);
-d1.u(1) = 0.10;
+d1.shk_A(1) = 0.10;
 s1 = simulate(m1, d1, 1:40, "prependInput", true);
 
 d2 = steadydb(m2, 1:40);
-d2.u(1) = 0.10;
+d2.shk_A(1) = 0.10;
 s2 = simulate(m2, d2, 1:40, "prependInput", true);
 
 d3 = steadydb(m3, 1:40);
-d3.u(1) = 0.10;
+d3.shk_A(1) = 0.10;
 s3 = simulate(m3, d3, 1:40, "prependInput", true);
 
 
@@ -45,23 +45,23 @@ ch = databank.Chartpack();
 ch.Range = 0:40;
 ch.AxesSettings = {"yLimitMethod", "tight"};
 
-ch < ["y", "c", "i", "r", "k", "dA"];
+ch < ["y", "c", "i", "r", "k", "roc_A"];
 
 draw(ch, s1);
-title("Productivity shock: Model m1");
+visual.heading("Productivity shock: Model m1");
 
 
 ch = databank.Chartpack();
 ch.Range = 0:40;
 ch.AxesSettings = {"yLimitMethod", "tight"};
 
-ch < ["Y/A", "C/A", "I/A", "r", "K/A", "dA"];
+ch < ["Y/A", "C/A", "I/A", "r", "K/A", "roc_A"];
 
 draw(ch, s2);
-title("Productivity shock: Model m2");
+visual.heading("Productivity shock: Model m2");
 
 draw(ch, s3);
-title("Productivity shock: Model m3");
+visual.heading("Productivity shock: Model m3");
 
 
 %% Compare numerically the shock responses
@@ -86,13 +86,13 @@ ch = databank.Chartpack();
 ch.Range = 0:40;
 ch.AxesSettings = {"yLimitMethod", "tight"};
 
-ch < ["Y", "C", "I", "r", "K", "dA"];
+ch < ["Y", "C", "I", "r", "K", "roc_A"];
 
 draw(ch, databank.merge("horzcat", d2, s2));
 visual.hlegend("bottom", "No Shock", "Shock Simulation");
-title("Productivity shock in full levels: Model m2");
+visual.heading("Productivity shock in full levels: Model m2");
 
 draw(ch, databank.merge("horzcat", d3, s3));
 visual.hlegend("bottom", "No Shock", "Shock Simulation");
-title("Productivity shock in full levels: Model m3");
+visual.heading("Productivity shock in full levels: Model m3");
 

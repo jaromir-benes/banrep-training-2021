@@ -22,7 +22,7 @@ clear
 %
 
 p = struct( );
-p.g = 1.03;
+p.ss_roc_A = 1.03;
 p.gamma = 0.60;
 p.delta = 0.10;
 p.beta = 0.97;

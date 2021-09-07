@@ -24,9 +24,9 @@ load mat/createModels.mat m1 m2 m3
 % and `m3` (i.e. `Y`, `C`, `I`, `K`, `A`) is infinity.
 %
 
-c1 = acf(m1, "Order", 1);
-c2 = acf(m2, "Order", 1);
-c3 = acf(m3, "Order", 1);
+[c1, r1] = acf(m1, "order", 1);
+[c2, r2] = acf(m2, "order", 1);
+[c3, r3] = acf(m3, "order", 1);
 
 size(c1)
 size(c2)
@@ -60,10 +60,15 @@ c3(:, :, 2)
 % The differences come from rounding errors only.
 %
 
-listStationary = ["y", "c", "r"];
-c1 = select(c1, listStationary);
-c2 = select(c2, listStationary);
-c3 = select(c3, listStationary);
+select = ["log_roc_A", "r", "log_y", "log_c", "log_i", "log_k"];
+
+c1 = c1(select, select, :);
+c2 = c2(select, select, :);
+c3 = c3(select, select, :);
+
+r1 = r1(selert, selert, :);
+r2 = r2(selert, selert, :);
+r3 = r3(selert, selert, :);
 
 c1 - c2 %#ok<NOPTS, *MNEFF>
 c1 - c3 %#ok<NOPTS>

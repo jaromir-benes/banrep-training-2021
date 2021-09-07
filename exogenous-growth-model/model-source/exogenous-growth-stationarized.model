@@ -12,10 +12,13 @@
 
 !transition-variables
 
-    "Output to Productivity" y, "Consumption to Productivity" c, "Investment to Productivity" i
-    "Capital to Productivity" k, "Labor" L
-    "Rate of Change in Productivity" dA
-    "Real Rate of Interest" r
+    "Output to productivity" y
+    "Consumption to productivity" c
+    "Investment to productivity" i
+    "Capital to productivity" k
+    "Labor" N
+    "Rate of change in productivity" roc_A
+    "Real rate of interest" r
 %
 
 
@@ -23,7 +26,7 @@
 
 !parameters
 
-    g, gamma, delta, beta
+    ss_roc_A, gamma, delta, beta
 %
 
 
@@ -31,7 +34,7 @@
 
 !transition-shocks
 
-    "Productivity Shock" u
+    "Productivity Shock" shk_A
 %
 
 
@@ -39,16 +42,17 @@
 
 !transition-equations
 
-    c{1}/c * dA{1} = beta*(1 + r);
-    L = 1;
+    c{1}/c * roc_A{1} = beta*(1 + r);
+    N = 1;
 
-    y = L^gamma * (k{-1}/dA)^(1-gamma);
-    (1-gamma)*y{1}/k * dA{1} = r + delta;
-    k = (1-delta)*(k{-1}/dA) + i;
+    y = N^gamma * (k{-1}/roc_A)^(1-gamma);
+    (1-gamma)*y{1}/k * roc_A{1} = r + delta;
+    k = (1-delta)*(k{-1}/roc_A) + i;
 
-    log(dA) = log(g) + u;
+    log(roc_A) = log(ss_roc_A) + shk_A;
 
     y = c + i;
+
 %
 
 
