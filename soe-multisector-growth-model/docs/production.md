@@ -3,8 +3,6 @@
 
 * Production technology with time-varying elasticity of substitution
 
-* Three stages of production
-  
 * Input factors
     * Local labor
     * Intermediate imports
@@ -12,6 +10,8 @@
 
 * Sticky prices
 
+* Analytically organized in three stages
+  
 
 $$
 \newcommand{\tsum}{\textstyle\sum}

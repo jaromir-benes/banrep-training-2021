@@ -5,7 +5,7 @@
 
 $$
 y_t 
-= \extern{y}_t \, \left( \frac{py_t}{\extern{py}_t} \right)^-\epsilon \,
+= \extern{y}_t \, \left( \frac{py_t}{\extern{py}_t} \right)^{-\epsilon} \,
 $$
 
 where

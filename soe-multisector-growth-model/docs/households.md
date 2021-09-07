@@ -5,7 +5,7 @@ $$
 \newcommand{\tsum}{\textstyle\sum}
 \newcommand{\extern}[1]{\mathrm{\mathbf{{#1}}}}
 \newcommand{\local}{\mathrm{local}}
-\newcommand{\roc}[1]{\overset{\Delta}{#1{}}}
+\newcommand{\roc}[1]{#1^{\small\Delta}}
 \newcommand{\ss}{\mathrm{ss}}
 \newcommand{\E}{\mathbf{E}}
 \newcommand{\ref}{{\mathrm{ref}}}
@@ -32,7 +32,7 @@ Lifetime utility function (normalize current period to $0$)
 
 $$
 \begin{equation}
-\E_0 \sum_{t=0}^{\infty} \beta^t \Bigl( U^{c}_t - U^{nh}_t \Bigr)
+\E_0 \sum_{t=0}^{\infty} \beta^t \Bigl( U^{c}_t - U^{n}_t \Bigr)
 \end{equation}
 $$
 
@@ -47,7 +47,7 @@ Disutility from labor
 
 $$
 \newcommand{\Un}{\tfrac{1}{1+\eta}\ n_t{}^{1+\eta}}
-U^{nh}_t \equiv \Un
+U^{n}_t \equiv \Un
 $$
 
 where 
@@ -59,9 +59,8 @@ c_t^\ref \equiv \roc{c}_\ss\, \extern{c}_{t-1}
 $$
 
 * $\kappa_{c} \equiv 1 - \chi_c$ is a steady-state
-  correction constant ensuring that the marginal utility of consumption
-  equals $nn_t \, c_\ss{}^{-1}$ in steady state, a feature of
-  modeling convenience,
+  correction constant making the marginal utility of consumption
+  independent of habit and equal to $c_\ss{}^{-1}$ in steady state, a feature of modeling convenience,
 
 ---
 
