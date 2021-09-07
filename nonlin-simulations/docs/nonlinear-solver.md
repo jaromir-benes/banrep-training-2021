@@ -74,7 +74,7 @@ the ```"fixLevel"``` option)
 $$
 \begin{gathered}
 x_k = x_{k-1} - s_k \, D_k \\[5pt]
-D_k = \left( J_{k-1}^T\, J_{k-1} + \lambda_k \right)^{-1}\ J_{k-1} \ F_{k-1}
+D_k = \left( J_{k-1}{}^T\, J_{k-1} + \lambda_k \right)^{-1}\ J_{k-1}{}^T \ F_{k-1}
 \end{gathered}
 $$
 
